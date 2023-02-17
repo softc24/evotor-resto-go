@@ -18,11 +18,13 @@ func main() {
 
 	ctx := context.TODO()
 
+	// создаем клиент
 	client := evotorrestogo.Client{
 		BaseURL: evotorrestogo.DevURL,
 		Token:   token,
 	}
 
+	// получаем список торговых точек
 	stores, err := client.SelectStores(ctx)
 	if err != nil {
 		log.Fatalln(err)
@@ -31,6 +33,7 @@ func main() {
 	log.Printf("%+v\n", stores[0])
 
 	storeId := stores[0].UUID
+	// получаем меню торговой точки
 	menu, err := client.SelectMenu(ctx, storeId)
 	if err != nil {
 		log.Fatalln(err)
@@ -39,6 +42,7 @@ func main() {
 	product := menu[0]
 	log.Printf("%+v\n", product)
 
+	// создаем заказ
 	order := evotorrestogo.MakeOrder(strconv.FormatInt(time.Now().UnixMilli(), 32), "Комментарий", evotorrestogo.Contacts{
 		Phone: "79990001234",
 	}, []evotorrestogo.OrderPosition{
@@ -52,6 +56,7 @@ func main() {
 
 	log.Printf("%+v\n", order)
 
+	// проверяем состояние заказа
 	order, err = client.GetOrder(ctx, storeId, order.UUID)
 	if err != nil {
 		log.Fatalln(err)
