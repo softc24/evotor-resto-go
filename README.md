@@ -2,7 +2,6 @@
 
 <!-- PROJECT SHIELDS -->
 [![Version][version-shield]][version-url]
-[![Downloads][downloads-shield]][downloads-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -235,8 +234,6 @@ Use this space to list resources you find helpful and would like to give credit 
 [issues-url]: https://github.com/softc24/evotor-resto-go/issues
 [license-shield]: https://img.shields.io/github/license/softc24/evotor-resto-go.svg?style=for-the-badge
 [license-url]: https://github.com/softc24/evotor-resto-go/blob/master/LICENSE.txt
-[downloads-shield]: https://img.shields.io/packagist/dm/softc/evotor-certificates.svg?style=for-the-badge
-[downloads-url]: https://packagist.org/packages/softc/evotor-certificates/stats
 [version-shield]: https://img.shields.io/github/go-mod/go-version/softc24/evotor-resto-go.svg?style=for-the-badge
 [version-url]: https://pkg.go.dev/github.com/softc24/evotor-resto-go
 [product-screenshot]: docs/screenshot.png
