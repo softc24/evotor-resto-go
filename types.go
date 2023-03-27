@@ -130,6 +130,21 @@ func (m *Timestamp) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+type IsUnavailable bool
+
+func (i *IsUnavailable) UnmarshalJSON(b []byte) error {
+	str := string(b)
+	switch str {
+	case `"1"`:
+		*i = true
+	case `"0"`, "null":
+		*i = false
+	default:
+		return fmt.Errorf("invalid value for IsUnavailable: %s", str)
+	}
+	return nil
+}
+
 // Торговая точка
 type Store struct {
 	UUID    string `json:"uuid"`              // ИД
@@ -152,8 +167,8 @@ type MenuItem struct {
 	ParentUUID    string `json:"parentUuid,omitempty"`    // ИД родителя
 	Type          string `json:"type,omitempty"`          // вид номенклатуры
 
-	ImageURL      string `json:"image_url,omitempty"` // URL изображения
-	IsUnavailable bool   `json:"isUnavailable"`       // присутствие в стоп-листе
+	ImageURL      string        `json:"image_url,omitempty"` // URL изображения
+	IsUnavailable IsUnavailable `json:"isUnavailable"`       // присутствие в стоп-листе
 }
 
 // Заказ

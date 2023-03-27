@@ -243,3 +243,59 @@ func TestMakeOrder(t *testing.T) {
 		})
 	}
 }
+
+func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
+	type args struct {
+		data []byte
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    IsUnavailable
+		wantErr bool
+	}{
+		{
+			name: "unavailable",
+			args: args{
+				data: []byte(`"1"`),
+			},
+			want:    true,
+			wantErr: false,
+		},
+		{
+			name: "available",
+			args: args{
+				data: []byte(`"0"`),
+			},
+			want:    false,
+			wantErr: false,
+		},
+		{
+			name: "null",
+			args: args{
+				data: []byte(`null`),
+			},
+			want:    false,
+			wantErr: false,
+		},
+		{
+			name: "Invalid",
+			args: args{
+				data: []byte("`q`"),
+			},
+			want:    false,
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			m := IsUnavailable(false)
+			if err := m.UnmarshalJSON(tt.args.data); (err != nil) != tt.wantErr {
+				t.Errorf("IsUnavailable UnmarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
+			}
+			if tt.want != m {
+				t.Errorf("IsUnavailable UnmarshalJSON() = %v, want %v", m, tt.want)
+			}
+		})
+	}
+}
