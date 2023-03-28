@@ -130,17 +130,22 @@ func (m *Timestamp) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type IsUnavailable bool
+type Bool bool
 
-func (i *IsUnavailable) UnmarshalJSON(b []byte) error {
+func (i *Bool) UnmarshalJSON(b []byte) error {
 	str := string(b)
+
+	if str == "null" {
+		return nil
+	}
+
 	switch str {
-	case `"1"`:
+	case `"true"`, `true`, `"1"`, `1`:
 		*i = true
-	case `"0"`, "null":
+	case `"false"`, `false`, `"0"`, `0`:
 		*i = false
 	default:
-		return fmt.Errorf("invalid value for IsUnavailable: %s", str)
+		return fmt.Errorf("invalid value for Bool: %s", str)
 	}
 	return nil
 }
@@ -167,8 +172,8 @@ type MenuItem struct {
 	ParentUUID    string `json:"parentUuid,omitempty"`    // ИД родителя
 	Type          string `json:"type,omitempty"`          // вид номенклатуры
 
-	ImageURL      string        `json:"image_url,omitempty"` // URL изображения
-	IsUnavailable IsUnavailable `json:"isUnavailable"`       // присутствие в стоп-листе
+	ImageURL      string `json:"image_url,omitempty"` // URL изображения
+	IsUnavailable bool   `json:"isUnavailable"`       // присутствие в стоп-листе
 }
 
 // Заказ

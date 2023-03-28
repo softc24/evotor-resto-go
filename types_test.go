@@ -251,11 +251,11 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    IsUnavailable
+		want    Bool
 		wantErr bool
 	}{
 		{
-			name: "unavailable",
+			name: "true",
 			args: args{
 				data: []byte(`"1"`),
 			},
@@ -263,13 +263,62 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "available",
+			name: "true",
+			args: args{
+				data: []byte(`1`),
+			},
+			want:    true,
+			wantErr: false,
+		},
+		{
+			name: "true",
+			args: args{
+				data: []byte(`true`),
+			},
+			want:    true,
+			wantErr: false,
+		},
+		{
+			name: "true",
+			args: args{
+				data: []byte(`"true"`),
+			},
+			want:    true,
+			wantErr: false,
+		},
+		{
+			name: "false",
 			args: args{
 				data: []byte(`"0"`),
 			},
 			want:    false,
 			wantErr: false,
 		},
+		{
+			name: "false",
+			args: args{
+				data: []byte(`0`),
+			},
+			want:    false,
+			wantErr: false,
+		},
+		{
+			name: "false",
+			args: args{
+				data: []byte(`false`),
+			},
+			want:    false,
+			wantErr: false,
+		},
+		{
+			name: "false",
+			args: args{
+				data: []byte(`"false"`),
+			},
+			want:    false,
+			wantErr: false,
+		},
+
 		{
 			name: "null",
 			args: args{
@@ -289,12 +338,12 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			m := IsUnavailable(false)
+			m := Bool(false)
 			if err := m.UnmarshalJSON(tt.args.data); (err != nil) != tt.wantErr {
-				t.Errorf("IsUnavailable UnmarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Bool UnmarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			if tt.want != m {
-				t.Errorf("IsUnavailable UnmarshalJSON() = %v, want %v", m, tt.want)
+				t.Errorf("Bool UnmarshalJSON() = %v, want %v", m, tt.want)
 			}
 		})
 	}
