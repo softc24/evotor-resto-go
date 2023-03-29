@@ -173,7 +173,7 @@ type MenuItem struct {
 	Type          string `json:"type,omitempty"`          // вид номенклатуры
 
 	ImageURL      string `json:"image_url,omitempty"` // URL изображения
-	IsUnavailable bool   `json:"isUnavailable"`       // присутствие в стоп-листе
+	IsUnavailable Bool   `json:"isUnavailable"`       // присутствие в стоп-листе
 }
 
 // Заказ

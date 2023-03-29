@@ -244,7 +244,7 @@ func TestMakeOrder(t *testing.T) {
 	}
 }
 
-func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
+func TestBool_UnmarshalJSON(t *testing.T) {
 	type args struct {
 		data []byte
 	}
@@ -255,7 +255,7 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "true",
+			name: "String 1",
 			args: args{
 				data: []byte(`"1"`),
 			},
@@ -263,7 +263,7 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "true",
+			name: "Int 1",
 			args: args{
 				data: []byte(`1`),
 			},
@@ -271,7 +271,7 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "true",
+			name: "Bool true",
 			args: args{
 				data: []byte(`true`),
 			},
@@ -279,7 +279,7 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "true",
+			name: "String true",
 			args: args{
 				data: []byte(`"true"`),
 			},
@@ -287,7 +287,7 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "false",
+			name: "String 0",
 			args: args{
 				data: []byte(`"0"`),
 			},
@@ -295,7 +295,7 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "false",
+			name: "Int 0",
 			args: args{
 				data: []byte(`0`),
 			},
@@ -303,7 +303,7 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "false",
+			name: "Bool false",
 			args: args{
 				data: []byte(`false`),
 			},
@@ -311,7 +311,7 @@ func TestIsUnavailable_UnmarshalJSON(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "false",
+			name: "String false",
 			args: args{
 				data: []byte(`"false"`),
 			},
