@@ -130,6 +130,26 @@ func (m *Timestamp) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+type Bool bool
+
+func (i *Bool) UnmarshalJSON(b []byte) error {
+	str := string(b)
+
+	if str == "null" {
+		return nil
+	}
+
+	switch str {
+	case `"true"`, `true`, `"1"`, `1`:
+		*i = true
+	case `"false"`, `false`, `"0"`, `0`:
+		*i = false
+	default:
+		return fmt.Errorf("invalid value for Bool: %s", str)
+	}
+	return nil
+}
+
 // Торговая точка
 type Store struct {
 	UUID    string `json:"uuid"`              // ИД
@@ -153,7 +173,7 @@ type MenuItem struct {
 	Type          string `json:"type,omitempty"`          // вид номенклатуры
 
 	ImageURL      string `json:"image_url,omitempty"` // URL изображения
-	IsUnavailable bool   `json:"isUnavailable"`       // присутствие в стоп-листе
+	IsUnavailable Bool   `json:"isUnavailable"`       // присутствие в стоп-листе
 }
 
 // Заказ
